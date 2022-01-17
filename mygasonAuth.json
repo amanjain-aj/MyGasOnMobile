@@ -1,0 +1,975 @@
+{
+	"info": {
+		"_postman_id": "d639c8aa-9784-4e16-ba0e-0b74aca17902",
+		"name": "MyGas-Orchestrator-Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin@123\",\r\n    \"email\": \"superadmin@mygason.com\",\r\n    \"role\": \"superAdmin\",\r\n    \"name\": \"Admin\",\r\n    \"mobile\": \"9999999999\",\r\n    \"address1\": \"address line 1\",\r\n    \"address2\": \"address line 2\",\r\n    \"district\": \"South West Delhi\",\r\n    \"city\": \"Delhi\",\r\n    \"state\": \"Delhi\",\r\n    \"latitude\": 12.7865,\r\n    \"longitude\": 11.9876,\r\n    \"photoPath\": \"/path/xyz\",\r\n    \"device\": \"12345\",\r\n    \"agencyId\": \"12346\",\r\n    \"customerId\": null,\r\n    \"channelPartnerId\": null,\r\n    \"agentId\": null,\r\n    \"aadhar\": \"123456784567\",\r\n    \"pan\": \"BOJHT456YY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/register",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData.accessToken;\r",
+									"postman.setEnvironmentVariable(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"cust-user-1\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/login",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZWVwMDEiLCJpYXQiOjE2MTkzNDUxNDQsImV4cCI6MTYxOTQzMTU0NH0.icohAyrwQESPY_8L61UjMy9-xF4Mq-3JRNJkcJf9bpyWWIwTTtV_5R8MjF9UBt4h6-G57K2b0UI_K14lFdsd_A",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobileNumber\": \"8826832703\",\r\n    \"emailId\": \"deepankar.gupta009@gmail.com\",\r\n    \"name\": \"Test chef\",\r\n    \"role\": \"chef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/invite",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"invite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZWVwYW5rYXIxMjMiLCJpYXQiOjE2MjUyOTM2OTcsImV4cCI6MTYyNTM4MDA5N30.OjGErBRWe1fuQcMvV4TA8Mvl1Z66wTlJT-smE00zL8AdYc17XRS6KC-Y0ddFp16jGgvZ9u8MU09kVjxayXZv-g",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/api/user/cust-user-1",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"cust-user-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZWVwYW5rYXIxMjMiLCJpYXQiOjE2MjQ5OTYwODQsImV4cCI6MTYyNTA4MjQ4NH0.M_chLqct27QSu5ojlsxi1bQtgg2Bxr2U1nUNY-thCPVXcOxS86ObMXQUzhugaKEwBUAV8Tt-zAK-c2Q_xM8tXw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\": \"password\",\r\n    \"oldPassword\": \"seo1W2qCzW\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/8826832701/changepassword",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"8826832701",
+								"changepassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZWVwYW5rYXIxMjMiLCJpYXQiOjE2MjQ5OTYwODQsImV4cCI6MTYyNTA4MjQ4NH0.M_chLqct27QSu5ojlsxi1bQtgg2Bxr2U1nUNY-thCPVXcOxS86ObMXQUzhugaKEwBUAV8Tt-zAK-c2Q_xM8tXw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"latitude\": 12.10,\r\n    \"longitude\": 11.69\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/testuser/location",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"testuser",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password - get otp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobileNumber\":\"8826832701\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/otp/generate",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"otp",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password - verify otp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"otp\": \"109210\",\r\n    \"mobileNumber\": \"8826832701\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/otp/verify",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"otp",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password - update password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"otp\": \"790627\",\r\n    \"mobileNumber\": \"8826832701\",\r\n    \"newPassword\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/forgotpassword",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"forgotpassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZWVwYW5rYXIxMjMiLCJpYXQiOjE2MjQ5OTU5MDQsImV4cCI6MTYyNTA4MjMwNH0.EPBml36bDW4nHg7CiVs3Ba7rpQ4EBSITlmahXkQ8sLaeX56TBH7dAZbwTb6PfM2AlgCd-Ack0M0a73Qyy7hyAQ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/api/user?page=0&size=10",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "role",
+									"value": "agencyManager",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "9582824246",
+									"disabled": true
+								},
+								{
+									"key": "mobile",
+									"value": "8826832701",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "deepankar.gupta009@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "customerId",
+									"value": "CUST-00002",
+									"disabled": true
+								},
+								{
+									"key": "agencyId",
+									"value": "AGY-00005",
+									"disabled": true
+								},
+								{
+									"key": "channelPartnerId",
+									"value": "CP-00001",
+									"disabled": true
+								},
+								{
+									"key": "agentId",
+									"value": "AGT-00001",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZWVwYW5rYXIxMjMiLCJpYXQiOjE2MjQ5OTU5MDQsImV4cCI6MTYyNTA4MjMwNH0.EPBml36bDW4nHg7CiVs3Ba7rpQ4EBSITlmahXkQ8sLaeX56TBH7dAZbwTb6PfM2AlgCd-Ack0M0a73Qyy7hyAQ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@mygason.com\",\r\n    \"userDetails\": {\r\n        \"name\": \"Test Admin\",\r\n        \"mobile\": \"8888888888\",\r\n        \"address1\": \"address line 1\",\r\n        \"address2\": \"address line 2\",\r\n        \"district\": \"South West Delhi\",\r\n        \"city\": \"Delhi\",\r\n        \"state\": \"Delhi\",\r\n        \"latitude\": 12.7865,\r\n        \"longitude\": 11.9876,\r\n        \"photoPath\": \"/path/xyz\",\r\n        \"device\": \"12345\",\r\n        \"aadhar\": \"123456784567\",\r\n        \"pan\": \"BOJHT456YY\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/cust-user-1",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"cust-user-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/api/user/8826832701",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"8826832701"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Config",
+			"item": [
+				{
+					"name": "Get App Config",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/api/config",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"config"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get App Config",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/api/config",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"api",
+										"config"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 28 Jul 2021 22:10:54 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"links\": {\n        \"improvementTipsLink\": \"https://google.com\",\n        \"userManualLink\": \"https://google.com\",\n        \"fileBaseURL\": \"https://google.com\",\n        \"rateUsLink\": \"https://google.com\",\n        \"trainingVideosLink\": \"https://google.com\",\n        \"faqLink\": \"https://google.com\",\n        \"bookTrainingLink\": \"https://google.com\"\n    },\n    \"appInfo\": {\n        \"productVersion\": \"12345\",\n        \"releaseDate\": \"24 January 2021\",\n        \"appSize\": \"25 MB\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Add App Config",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"configKey\": \"bookTrainingLink\",\r\n    \"configValue\": \"https://google.com\",\r\n    \"configType\": \"link\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/config",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update App Config",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"configValue\": \"https://test.com\",\r\n    \"configType\": \"link\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/config/bookTrainingLink",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"config",
+								"bookTrainingLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete App Config",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/api/config/userManual",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"config",
+								"userManual"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Send message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"messageType\": \"agencySuggestion\",\r\n    \"subject\": \"Sugesstion\",\r\n    \"message\": \"This is a sample suggestion\",\r\n    \"agencyId\": \"AGY-00001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/notify",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"notify"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Send message",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"messageType\": \"appSuggestion\",\r\n    \"subject\": \"Sugesstion\",\r\n    \"message\": \"This is a sample suggestion\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/api/notify",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"api",
+										"notify"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 28 Jul 2021 22:17:01 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Message sent successfully\"\n}"
+						},
+						{
+							"name": "Send message",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"messageType\": \"agencySuggestion\",\r\n    \"subject\": \"Sugesstion\",\r\n    \"message\": \"This is a sample suggestion\",\r\n    \"agencyId\": \"AGY-00001\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/api/notify",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"api",
+										"notify"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 28 Jul 2021 22:18:18 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Message sent successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get user notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/api/user/notification?page=0&size=10",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"notification"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get user notifications",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/api/user/notification?page=0&size=10",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"notification"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 28 Jul 2021 22:03:13 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 58,\n            \"message\": {\n                \"title\": \"Sample Message title\",\n                \"body\": \"Sample Message Body\"\n            },\n            \"receiverUsername\": \"cust-user-1\",\n            \"senderUsername\": \"testuser\",\n            \"status\": \"UNREAD\",\n            \"createdDate\": \"2021-07-29T02:19:56.105007\"\n        },\n        {\n            \"id\": 52,\n            \"message\": {\n                \"title\": \"Sample Message title\",\n                \"body\": \"Sample Message Body\"\n            },\n            \"receiverUsername\": \"cust-user-1\",\n            \"senderUsername\": \"testuser\",\n            \"status\": \"UNREAD\",\n            \"createdDate\": \"2021-07-29T02:14:07.602398\"\n        },\n        {\n            \"id\": 55,\n            \"message\": {\n                \"title\": \"Sample Message title\",\n                \"body\": \"Sample Message Body\"\n            },\n            \"receiverUsername\": \"cust-user-1\",\n            \"senderUsername\": \"testuser\",\n            \"status\": \"READ\",\n            \"createdDate\": \"2021-07-29T02:15:22.134759\"\n        }\n    ],\n    \"pagination\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"totalPages\": 1,\n        \"totalRecords\": 3\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update notification status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"READ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/user/notification/59",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"notification",
+								"59"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
